@@ -5,23 +5,32 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import com.kalnik.tmdbapp4.Greeting
-
-fun greet(): String {
-    return Greeting().greeting()
-}
+import androidx.lifecycle.lifecycleScope
+import com.kalnik.tmdbapp4.data.TmdbApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
+
+    val tmdbApi: TmdbApi by inject()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContent {
-            Greeting(greet())
+        lifecycleScope.launchWhenCreated {
+            val series = withContext(Dispatchers.IO) {
+                tmdbApi.getPopularTVShows()
+            }
+
+            setContent {
+                InfoText(series.toString())
+            }
         }
     }
 }
 
 @Composable
-fun Greeting(text: String) {
+fun InfoText(text: String) {
     Text(text = text)
 }
