@@ -10,6 +10,7 @@ import com.kalnik.tmdbapp4.data.TmdbApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
+import java.util.Calendar
 
 class MainActivity : ComponentActivity() {
 
@@ -22,9 +23,10 @@ class MainActivity : ComponentActivity() {
             val series = withContext(Dispatchers.IO) {
                 tmdbApi.getPopularTVShows()
             }
+            val currentTime = Calendar.getInstance().time
 
             setContent {
-                InfoText(series.toString())
+                InfoText("$currentTime\n\n${series}")
             }
         }
     }
