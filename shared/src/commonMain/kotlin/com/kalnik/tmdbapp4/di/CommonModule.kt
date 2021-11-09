@@ -6,17 +6,11 @@ import org.koin.core.context.startKoin
 import org.koin.dsl.module
 
 fun initKoin() = startKoin {
-    modules(CommonModule.module)
+    modules(commonModule)
 }
 
-class CommonModule {
-
-    companion object {
-
-        @Suppress("RemoveExplicitTypeArguments")
-        val module = module {
-            single<HttpClient> { TmdbApi.createHttpClient() }
-            single<TmdbApi> { TmdbApi(client = get()) }
-        }
-    }
+@Suppress("RemoveExplicitTypeArguments")
+val commonModule = module {
+    single<HttpClient> { TmdbApi.createHttpClient() }
+    single<TmdbApi> { TmdbApi(client = get()) }
 }
