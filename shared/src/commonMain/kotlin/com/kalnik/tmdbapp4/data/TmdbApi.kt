@@ -4,6 +4,9 @@ import io.ktor.client.HttpClient
 import io.ktor.client.features.defaultRequest
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
+import io.ktor.client.features.logging.DEFAULT
+import io.ktor.client.features.logging.LogLevel
+import io.ktor.client.features.logging.Logger
 import io.ktor.client.features.logging.Logging
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
@@ -22,7 +25,10 @@ class TmdbApi(
             install(JsonFeature) {
                 serializer = KotlinxSerializer(Json { ignoreUnknownKeys = true })
             }
-            install(Logging)
+            install(Logging) {
+                logger = Logger.DEFAULT
+                level = LogLevel.ALL
+            }
 
             defaultRequest {
                 url {
