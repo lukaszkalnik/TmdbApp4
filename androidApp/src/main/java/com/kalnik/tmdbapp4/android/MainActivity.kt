@@ -8,7 +8,6 @@ import com.kalnik.tmdbapp4.data.TmdbApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
-import java.util.*
 
 class MainActivity : ComponentActivity() {
 
@@ -23,7 +22,7 @@ class MainActivity : ComponentActivity() {
             }
 
             setContent {
-                TVShowSummaryList(tvShows = tvShowsPage.results)
+                TVShowSummariesScreen(tvShows = tvShowsPage.results)
             }
         }
     }

@@ -3,6 +3,9 @@ package com.kalnik.tmdbapp4.android
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -47,8 +50,14 @@ fun ExampleTvShow() {
 }
 
 @Composable
-fun TVShowSummaryList(tvShows: List<TVShow>) {
-    Column {
+fun TVShowSummaryList(
+    modifier: Modifier,
+    tvShows: List<TVShow>
+) {
+    Column(
+        modifier = modifier then
+                Modifier.verticalScroll(state = rememberScrollState())
+    ) {
         tvShows.map {
             TVShowSummary(
                 name = it.name,
@@ -58,4 +67,12 @@ fun TVShowSummaryList(tvShows: List<TVShow>) {
             Spacer(modifier = Modifier.height(16.dp))
         }
     }
+}
+
+@Composable
+fun TVShowSummariesScreen(tvShows: List<TVShow>) {
+    TVShowSummaryList(
+        modifier = Modifier.padding(16.dp),
+        tvShows = tvShows
+    )
 }
