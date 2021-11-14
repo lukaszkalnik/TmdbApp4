@@ -5,13 +5,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -73,7 +72,11 @@ fun TVShowSummaryList(
 
 @Composable
 fun TVShowSummariesScreen(tvShows: List<TVShow>) {
-    TVShowSummaryList(
-        tvShows = tvShows
-    )
+    Scaffold(
+        topBar = { TopAppBar(title = { Text(text = "Popular TV Shows") }) }
+    ) {
+        TVShowSummaryList(
+            tvShows = tvShows
+        )
+    }
 }
