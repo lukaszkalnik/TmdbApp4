@@ -12,8 +12,10 @@ data class TVShowsPage(
 
 @Serializable
 data class TVShow(
+    val id: Int,
     val name: String,
+    val overview: String,
     @SerialName("original_name") val originalName: String,
     @SerialName("poster_path") val posterPath: String?,
-    @SerialName("origin_country") val originCountries: List<String>
+    @SerialName("origin_country") val originCountries: List<String>,
 )
