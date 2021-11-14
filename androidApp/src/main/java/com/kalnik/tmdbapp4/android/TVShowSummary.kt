@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.kalnik.tmdbapp4.data.TVShow
 
 @Composable
 fun TVShowSummary(
@@ -20,13 +21,13 @@ fun TVShowSummary(
         Text(
             text = name,
             style = MaterialTheme.typography.h6
-            )
-        Spacer(modifier = Modifier.height(16.dp))
+        )
+        Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = overview,
             style = MaterialTheme.typography.body2
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = originCountries.joinToString(),
             style = MaterialTheme.typography.caption
@@ -43,4 +44,18 @@ fun ExampleTvShow() {
                 "series about a group of friends which travel together.",
         originCountries = listOf("KR", "US")
     )
+}
+
+@Composable
+fun TVShowSummaryList(tvShows: List<TVShow>) {
+    Column {
+        tvShows.map {
+            TVShowSummary(
+                name = it.name,
+                overview = it.overview,
+                originCountries = it.originCountries
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+    }
 }

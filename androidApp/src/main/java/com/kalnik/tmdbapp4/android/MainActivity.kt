@@ -3,14 +3,12 @@ package com.kalnik.tmdbapp4.android
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
 import androidx.lifecycle.lifecycleScope
 import com.kalnik.tmdbapp4.data.TmdbApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
-import java.util.Calendar
+import java.util.*
 
 class MainActivity : ComponentActivity() {
 
@@ -20,19 +18,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launchWhenCreated {
-            val series = withContext(Dispatchers.IO) {
+            val tvShowsPage = withContext(Dispatchers.IO) {
                 tmdbApi.getPopularTVShows()
             }
-            val currentTime = Calendar.getInstance().time
 
             setContent {
-                InfoText("$currentTime\n\n${series}")
+                TVShowSummaryList(tvShows = tvShowsPage.results)
             }
         }
     }
-}
-
-@Composable
-fun InfoText(text: String) {
-    Text(text = text)
 }
