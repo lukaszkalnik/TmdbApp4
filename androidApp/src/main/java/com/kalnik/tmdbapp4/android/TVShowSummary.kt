@@ -1,6 +1,8 @@
 package com.kalnik.tmdbapp4.android
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -53,11 +55,11 @@ fun ExampleTvShow() {
 
 @Composable
 fun TVShowSummaryList(
-    modifier: Modifier,
     tvShows: List<TVShow>
 ) {
     LazyColumn(
-        modifier = modifier
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(tvShows) {
             TVShowSummary(
@@ -65,7 +67,6 @@ fun TVShowSummaryList(
                 overview = it.overview,
                 originCountries = it.originCountries
             )
-            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }
@@ -73,7 +74,6 @@ fun TVShowSummaryList(
 @Composable
 fun TVShowSummariesScreen(tvShows: List<TVShow>) {
     TVShowSummaryList(
-        modifier = Modifier.padding(16.dp),
         tvShows = tvShows
     )
 }
