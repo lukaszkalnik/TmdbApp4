@@ -5,15 +5,18 @@ struct TVShowSummaryView: View {
     
     var body: some View {
         NavigationView {
-            if showsModel.tvShows.isEmpty {
-                Text("No data")
-            } else {
-                LazyVStack {
-                    ForEach(showsModel.tvShows, id: \.id) {
-                        Text($0.name)
+            VStack {
+                if showsModel.tvShows.isEmpty {
+                    Text("No data")
+                } else {
+                    LazyVStack {
+                        ForEach(showsModel.tvShows, id: \.id) {
+                            Text($0.name)
+                        }
                     }
                 }
             }
+            .navigationTitle("Popular TV Shows")
         }
         .onAppear {
             showsModel.fetchShows()
