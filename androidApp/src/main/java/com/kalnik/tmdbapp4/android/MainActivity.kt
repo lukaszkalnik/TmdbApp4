@@ -5,8 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.lifecycle.lifecycleScope
 import com.kalnik.tmdbapp4.data.TmdbApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
@@ -17,9 +15,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launchWhenCreated {
-            val tvShowsPage = withContext(Dispatchers.IO) {
-                tmdbApi.getPopularTVShows()
-            }
+            val tvShowsPage = tmdbApi.getPopularTVShows()
 
             setContent {
                 TVShowSummariesScreen(tvShows = tvShowsPage.results)
