@@ -13,7 +13,7 @@ import io.ktor.client.request.parameter
 import io.ktor.http.URLProtocol
 import kotlinx.serialization.json.Json
 
-class TmdbApi(
+internal class TmdbApi(
     private val client: HttpClient
 ) {
 

@@ -4,14 +4,14 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TVShowsPage(
+internal data class TVShowsPage(
     val page: Int,
     val results: List<TVShow>,
     @SerialName("total_pages") val totalPages: Int
 )
 
 @Serializable
-data class TVShow(
+internal data class TVShow(
     val id: Int,
     val name: String,
     val overview: String,
