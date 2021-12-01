@@ -2,18 +2,18 @@ import Foundation
 import shared
 
 class TVShowsViewModel: ObservableObject {
-    @Published var tvShows = [TVShow]()
+    @Published var uiState: TVShowsState?
     
-    private var tmdbApi = koin.getTmdbApi()
+    private var sharedViewModel: TVShowsSharedViewModel = koin.getTVShowsSharedViewModel()
+    private var uiStateWatcher: Closeable?
     
-    func fetchShows() {
-        tmdbApi.getPopularTVShows { [weak self] tvShowsPage, error in
-            if let tvShowsPage = tvShowsPage {
-                self?.tvShows = tvShowsPage.results
-            }
-            if let error = error {
-                print(error.localizedDescription)
-            }
+    init() {
+        uiStateWatcher = SharedViewModelsKt.watchUiState(viewModel: sharedViewModel).watch { [weak self] tvShowsState in
+            self?.uiState = tvShowsState
         }
+    }
+    
+    deinit {
+        uiStateWatcher?.close()
     }
 }

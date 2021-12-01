@@ -11,25 +11,25 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-interface PopularTVShowsViewModel {
+interface TVShowsSharedViewModel {
 
-    val uiState: StateFlow<PopularTVShowsState>
+    val uiState: StateFlow<TVShowsState>
 }
 
-internal class PopularTVShowsViewModelImpl(
+internal class TVShowsSharedViewModelImpl(
     dispatcher: CoroutineDispatcher = Dispatchers.Main
-) : PopularTVShowsViewModel,
+) : TVShowsSharedViewModel,
     KoinComponent {
 
     private val coroutineScope = CoroutineScope(dispatcher)
 
-    private val _uiState: MutableStateFlow<PopularTVShowsState> = MutableStateFlow(PopularTVShowsState.TVShows())
-    override val uiState: StateFlow<PopularTVShowsState> = _uiState.asStateFlow()
+    private val _uiState: MutableStateFlow<TVShowsState> = MutableStateFlow(TVShowsState.TVShows())
+    override val uiState: StateFlow<TVShowsState> = _uiState.asStateFlow()
 
     private val tmdbApi: TmdbApi by inject()
 
     init {
-        _uiState.value = PopularTVShowsState.Loading
+        _uiState.value = TVShowsState.Loading
         coroutineScope.launch {
             val tvShowsPage = tmdbApi.getPopularTVShows()
             val tvShows = tvShowsPage.results.map {
@@ -40,7 +40,7 @@ internal class PopularTVShowsViewModelImpl(
                     originCountries = it.originCountries
                 )
             }
-            _uiState.value = PopularTVShowsState.TVShows(tvShows)
+            _uiState.value = TVShowsState.TVShows(tvShows)
         }
     }
 }
@@ -52,9 +52,9 @@ data class TVShow(
     val originCountries: List<String>,
 )
 
-sealed class PopularTVShowsState {
+sealed class TVShowsState {
 
-    object Loading : PopularTVShowsState()
+    object Loading : TVShowsState()
 
-    data class TVShows(val tvShows: List<TVShow> = emptyList()) : PopularTVShowsState()
+    data class TVShows(val tvShows: List<TVShow> = emptyList()) : TVShowsState()
 }

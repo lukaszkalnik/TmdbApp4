@@ -2,16 +2,17 @@ import SwiftUI
 import shared
 
 struct TVShowSummaryView: View {
-    @StateObject var showsModel = TVShowsViewModel()
+    @StateObject var viewModel = TVShowsViewModel()
     
     var body: some View {
         NavigationView {
             VStack {
-                if showsModel.tvShows.isEmpty {
-                    Text("No data")
-                } else {
+                let tvShowsState: TVShowsState? = viewModel.uiState
+                if (tvShowsState as? TVShowsState.Loading) != nil {
+                    Text("Loading")
+                } else if let tvShowsAvailable = tvShowsState as? TVShowsState.TVShows {
                     List {
-                        ForEach(showsModel.tvShows, id: \.id) {
+                        ForEach(tvShowsAvailable.tvShows, id: \.id) {
                             ShowView(show: $0)
                         }
                     }
@@ -19,9 +20,6 @@ struct TVShowSummaryView: View {
                 }
             }
             .navigationTitle("Popular TV Shows")
-        }
-        .onAppear {
-            showsModel.fetchShows()
         }
     }
 }

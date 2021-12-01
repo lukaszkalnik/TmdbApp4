@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.kalnik.tmdbapp4.presentation.PopularTVShowsState
+import com.kalnik.tmdbapp4.presentation.TVShowsState
 import com.kalnik.tmdbapp4.presentation.TVShow
 
 @Composable
@@ -69,12 +69,12 @@ fun TVShowSummaryList(
 }
 
 @Composable
-fun TVShowSummariesScreen(uiState: PopularTVShowsState) {
+fun TVShowSummariesScreen(uiState: TVShowsState) {
     Scaffold(
         topBar = { TopAppBar(title = { Text(text = "Popular TV Shows") }) }
     ) {
         when (uiState) {
-            PopularTVShowsState.Loading ->
+            TVShowsState.Loading ->
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -84,7 +84,7 @@ fun TVShowSummariesScreen(uiState: PopularTVShowsState) {
                 ) {
                     Text(text = "Loading")
                 }
-            is PopularTVShowsState.TVShows -> TVShowSummaryList(
+            is TVShowsState.TVShows -> TVShowSummaryList(
                 tvShows = uiState.tvShows
             )
         }
