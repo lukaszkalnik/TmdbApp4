@@ -12,7 +12,7 @@ fun interface Closeable {
     fun close()
 }
 
-class CFlow<T: Any> internal constructor(private val origin: Flow<T>) : Flow<T> by origin {
+class CFlow<T : Any> internal constructor(private val origin: Flow<T>) : Flow<T> by origin {
 
     @Suppress("unused")
     fun watch(block: (T) -> Unit): Closeable {
@@ -26,6 +26,4 @@ class CFlow<T: Any> internal constructor(private val origin: Flow<T>) : Flow<T> 
     }
 }
 
-@Suppress("unused")
-internal fun <T: Any> Flow<T>.wrap(): CFlow<T> = CFlow(this)
-
+internal fun <T : Any> Flow<T>.wrap(): CFlow<T> = CFlow(this)
