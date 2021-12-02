@@ -8,10 +8,13 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 fun interface Closeable {
+    @Suppress("unused")
     fun close()
 }
 
 class CFlow<T: Any> internal constructor(private val origin: Flow<T>) : Flow<T> by origin {
+
+    @Suppress("unused")
     fun watch(block: (T) -> Unit): Closeable {
         val job = Job()
 
@@ -23,5 +26,6 @@ class CFlow<T: Any> internal constructor(private val origin: Flow<T>) : Flow<T> 
     }
 }
 
+@Suppress("unused")
 internal fun <T: Any> Flow<T>.wrap(): CFlow<T> = CFlow(this)
 
