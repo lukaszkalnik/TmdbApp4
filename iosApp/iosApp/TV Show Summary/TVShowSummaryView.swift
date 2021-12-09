@@ -9,7 +9,9 @@ struct TVShowSummaryView: View {
             VStack {
                 let tvShowsState: TVShowsState? = viewModel.uiState
                 if (tvShowsState as? TVShowsState.Loading) != nil {
-                    Text("Loading")
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: Color.green))
+                        .scaleEffect(1.5, anchor: .center)
                 } else if let tvShowsAvailable = tvShowsState as? TVShowsState.TVShows {
                     List {
                         ForEach(tvShowsAvailable.tvShows, id: \.id) {
