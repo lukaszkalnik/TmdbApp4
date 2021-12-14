@@ -12,8 +12,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.kalnik.tmdbapp4.presentation.TVShowsState
+import com.kalnik.tmdbapp4.androi.ui.theme.Purple700
 import com.kalnik.tmdbapp4.presentation.TVShow
+import com.kalnik.tmdbapp4.presentation.TVShowsState
 
 @Composable
 fun TVShowSummary(
@@ -39,14 +40,21 @@ fun TVShowSummary(
     }
 }
 
+private val exampleTVShow = TVShow(
+    id = 1234,
+    name = "Some series with a quite long name",
+    overview = "Series summary where the action is described. This is a really cool" +
+            "series about a group of friends which travel together.",
+    originCountries = listOf("KR", "US")
+)
+
 @Preview
 @Composable
 fun ExampleTvShow() {
     TVShowSummary(
-        name = "Some series with a quite long name",
-        overview = "Series summary where the action is described. This is a really cool" +
-                "series about a group of friends which travel together.",
-        originCountries = listOf("KR", "US")
+        name = exampleTVShow.name,
+        overview = exampleTVShow.overview,
+        originCountries = exampleTVShow.originCountries
     )
 }
 
@@ -71,7 +79,12 @@ fun TVShowSummaryList(
 @Composable
 fun TVShowSummariesScreen(uiState: TVShowsState) {
     Scaffold(
-        topBar = { TopAppBar(title = { Text(text = "Popular TV Shows") }) }
+        topBar = {
+            TopAppBar(
+                title = { Text(text = "Popular TV Shows") },
+                backgroundColor = Purple700
+            )
+        }
     ) {
         when (uiState) {
             TVShowsState.Loading ->
@@ -89,4 +102,11 @@ fun TVShowSummariesScreen(uiState: TVShowsState) {
             )
         }
     }
+}
+
+@Preview
+@Composable
+fun ExampleTvShowSummariesScreen() {
+    val uiState = TVShowsState.TVShows(tvShows = listOf(exampleTVShow))
+    TVShowSummariesScreen(uiState = uiState)
 }
