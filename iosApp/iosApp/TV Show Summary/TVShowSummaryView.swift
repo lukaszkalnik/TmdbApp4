@@ -35,7 +35,7 @@ private struct ShowView: View {
                 .fill(Color("CardViewBackground"))
             VStack(spacing: 8) {
                 Text(show.name)
-                    .font(.largeTitle)
+                    .font(.title)
                 Text(show.overview)
                     .font(.body)
                     .multilineTextAlignment(.leading)
