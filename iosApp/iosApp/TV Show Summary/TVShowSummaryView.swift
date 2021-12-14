@@ -33,7 +33,7 @@ private struct ShowView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .fill(Color("CardViewBackground"))
-            VStack(spacing: 8) {
+            VStack(alignment: .leading, spacing: 8) {
                 Text(show.name)
                     .font(.title)
                 Text(show.overview)
@@ -44,7 +44,6 @@ private struct ShowView: View {
                     .foregroundColor(.secondary)
             }
             .padding(16)
-            .multilineTextAlignment(.center)
         }
     }
 }
