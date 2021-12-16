@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
-    kotlin("plugin.serialization") version "1.5.31"
+    kotlin("plugin.serialization") version "1.6.0"
 }
 
 kotlin {
@@ -27,16 +27,16 @@ kotlin {
         }
     }
     sourceSets {
-        val ktorVersion = "1.6.4"
+        val ktorVersion = "1.6.7"
         val commonMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-serialization:$ktorVersion")
                 implementation("io.ktor:ktor-client-logging:$ktorVersion")
 
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.1")
 
-                val koinVersion = "3.1.2"
+                val koinVersion = "3.1.4"
                 implementation("io.insert-koin:koin-core:$koinVersion")
             }
         }
