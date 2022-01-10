@@ -1,5 +1,6 @@
 package com.kalnik.tmdbapp4.presentation
 
+import com.kalnik.tmdbapp4.data.ApiConfigurationRepository
 import com.kalnik.tmdbapp4.data.TmdbApi
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -27,10 +28,17 @@ internal class TVShowsSharedViewModelImpl(
     override val uiState: StateFlow<TVShowsState> = _uiState.asStateFlow()
 
     private val tmdbApi: TmdbApi by inject()
+    private val apiConfigurationRepository: ApiConfigurationRepository by inject()
 
     init {
         _uiState.value = TVShowsState.Loading
         coroutineScope.launch {
+            val apiConfig = tmdbApi.getConfiguration()
+            with(apiConfigurationRepository) {
+                imageBaseUrl = apiConfig.images.baseUrl
+                updateBackdropSizes(apiConfig.images.backdropSizes)
+            }
+
             val tvShowsPage = tmdbApi.getPopularTVShows()
             val tvShows = tvShowsPage.results.map {
                 TVShow(

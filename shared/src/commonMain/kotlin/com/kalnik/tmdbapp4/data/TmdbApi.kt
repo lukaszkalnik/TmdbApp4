@@ -17,6 +17,8 @@ internal class TmdbApi(
     private val client: HttpClient
 ) {
 
+    suspend fun getConfiguration(): ApiConfig = client.get("/configuration")
+
     suspend fun getPopularTVShows(): TVShowsPage = client.get("/tv/popular")
 
     companion object {

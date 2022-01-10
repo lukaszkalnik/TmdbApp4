@@ -19,3 +19,15 @@ internal data class TVShow(
     @SerialName("poster_path") val posterPath: String?,
     @SerialName("origin_country") val originCountries: List<String>,
 )
+
+@Serializable
+internal data class ApiConfig(
+    val images: ImageConfig
+)
+
+@Serializable
+internal data class ImageConfig(
+    @SerialName("secure_base_url") val baseUrl: String,
+    @SerialName("backdrop_sizes") val backdropSizes: List<String>,
+    @SerialName("poster_sizes") val posterSizes: List<String>
+)
