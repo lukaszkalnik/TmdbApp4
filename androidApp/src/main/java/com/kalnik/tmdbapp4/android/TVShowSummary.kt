@@ -10,8 +10,10 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.Image
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberImagePainter
 import com.kalnik.tmdbapp4.androi.ui.theme.Purple700
 import com.kalnik.tmdbapp4.presentation.TVShow
 import com.kalnik.tmdbapp4.presentation.TVShowsState
@@ -21,6 +23,7 @@ fun TVShowSummary(
     name: String,
     overview: String,
     originCountries: List<String>,
+    backdropImageUrl: String?,
 ) {
     Column {
         Text(
@@ -28,6 +31,14 @@ fun TVShowSummary(
             style = MaterialTheme.typography.h6
         )
         Spacer(modifier = Modifier.height(8.dp))
+        if (backdropImageUrl != null) {
+            Image(
+                painter = rememberImagePainter(backdropImageUrl),
+                contentDescription = null,
+                modifier = Modifier.height(120.dp),
+            )
+            Spacer(Modifier.height(8.dp))
+        }
         Text(
             text = overview,
             style = MaterialTheme.typography.body2
@@ -45,7 +56,8 @@ private val exampleTVShow = TVShow(
     name = "Some series with a quite long name",
     overview = "Series summary where the action is described. This is a really cool" +
             "series about a group of friends which travel together.",
-    originCountries = listOf("KR", "US")
+    originCountries = listOf("KR", "US"),
+    backdropImageUrl = "https://image.tmdb.org/t/p/w780/sjx6zjQI2dLGtEL0HGWsnq6UyLU.jpg",
 )
 
 @Preview
@@ -54,7 +66,8 @@ fun ExampleTvShow() {
     TVShowSummary(
         name = exampleTVShow.name,
         overview = exampleTVShow.overview,
-        originCountries = exampleTVShow.originCountries
+        originCountries = exampleTVShow.originCountries,
+        backdropImageUrl = exampleTVShow.backdropImageUrl,
     )
 }
 
@@ -70,7 +83,8 @@ fun TVShowSummaryList(
             TVShowSummary(
                 name = it.name,
                 overview = it.overview,
-                originCountries = it.originCountries
+                originCountries = it.originCountries,
+                backdropImageUrl = it.backdropImageUrl,
             )
         }
     }

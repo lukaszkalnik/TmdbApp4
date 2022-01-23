@@ -18,6 +18,7 @@ internal data class TVShow(
     @SerialName("original_name") val originalName: String,
     @SerialName("poster_path") val posterPath: String?,
     @SerialName("origin_country") val originCountries: List<String>,
+    @SerialName("backdrop_path") val backdropPath: String?,
 )
 
 @Serializable

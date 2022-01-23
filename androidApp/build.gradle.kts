@@ -21,6 +21,8 @@ dependencies {
     val koinVersion = "3.1.2"
     implementation("io.insert-koin:koin-core:$koinVersion")
     implementation("io.insert-koin:koin-android:$koinVersion")
+
+    implementation("io.coil-kt:coil-compose:1.4.0")
 }
 
 android {
