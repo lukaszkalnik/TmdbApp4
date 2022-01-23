@@ -1,6 +1,5 @@
 package com.kalnik.tmdbapp4.android
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -20,8 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberImagePainter
-import coil.size.OriginalSize
+import coil.compose.AsyncImage
 import com.kalnik.tmdbapp4.androi.ui.theme.Purple700
 import com.kalnik.tmdbapp4.presentation.TVShow
 import com.kalnik.tmdbapp4.presentation.TVShowsState
@@ -40,13 +38,10 @@ fun TVShowSummary(
         )
         Spacer(modifier = Modifier.height(8.dp))
         if (backdropImageUrl != null) {
-            Image(
-                painter = rememberImagePainter(backdropImageUrl) {
-                    // Workaround for https://issuetracker.google.com/issues/186012457
-                    size(OriginalSize)
-                },
+            AsyncImage(
+                model = backdropImageUrl,
                 contentDescription = null,
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.FillWidth,
                 modifier = Modifier.fillMaxWidth(),
             )
             Spacer(Modifier.height(8.dp))
