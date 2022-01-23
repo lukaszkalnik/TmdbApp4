@@ -1,6 +1,13 @@
 package com.kalnik.tmdbapp4.android
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
@@ -10,10 +17,11 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.foundation.Image
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
+import coil.size.OriginalSize
 import com.kalnik.tmdbapp4.androi.ui.theme.Purple700
 import com.kalnik.tmdbapp4.presentation.TVShow
 import com.kalnik.tmdbapp4.presentation.TVShowsState
@@ -33,9 +41,13 @@ fun TVShowSummary(
         Spacer(modifier = Modifier.height(8.dp))
         if (backdropImageUrl != null) {
             Image(
-                painter = rememberImagePainter(backdropImageUrl),
+                painter = rememberImagePainter(backdropImageUrl) {
+                    // Workaround for https://issuetracker.google.com/issues/186012457
+                    size(OriginalSize)
+                },
                 contentDescription = null,
-                modifier = Modifier.height(120.dp),
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxWidth(),
             )
             Spacer(Modifier.height(8.dp))
         }
