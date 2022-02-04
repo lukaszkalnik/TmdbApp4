@@ -39,6 +39,7 @@ internal class TVShowsSharedViewModelImpl(
                 updateBackdropSizes(apiConfig.images.backdropSizes)
             }
             val backdropBaseUrl = with(apiConfigRepository) { imageBaseUrl + backdropSize }
+
             val tvShows = tmdbApi.getPopularTVShows().results.map { tvShowResult ->
                 TVShow(
                     id = tvShowResult.id,

@@ -6,11 +6,11 @@ plugins {
 dependencies {
     implementation(project(":shared"))
 
-    implementation("com.google.android.material:material:1.4.0")
+    implementation("com.google.android.material:material:1.5.0")
 
     implementation("androidx.activity:activity-compose:1.4.0")
 
-    val composeVersion = "1.1.0-rc01"
+    val composeVersion = "1.1.0-rc03"
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
@@ -18,11 +18,11 @@ dependencies {
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
 
-    val koinVersion = "3.1.2"
+    val koinVersion = "3.1.5"
     implementation("io.insert-koin:koin-core:$koinVersion")
     implementation("io.insert-koin:koin-android:$koinVersion")
 
-    implementation("io.coil-kt:coil-compose:2.0.0-alpha06")
+    implementation("io.coil-kt:coil-compose:2.0.0-alpha07")
 }
 
 android {
