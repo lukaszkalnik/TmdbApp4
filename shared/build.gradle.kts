@@ -34,9 +34,9 @@ kotlin {
                 implementation("io.ktor:ktor-client-serialization:$ktorVersion")
                 implementation("io.ktor:ktor-client-logging:$ktorVersion")
 
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
 
-                val koinVersion = "3.1.4"
+                val koinVersion = "3.1.5"
                 implementation("io.insert-koin:koin-core:$koinVersion")
             }
         }
