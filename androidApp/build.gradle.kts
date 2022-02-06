@@ -53,6 +53,7 @@ android {
 
     kotlinOptions {
         jvmTarget = "11"
+        // For some reason this is needed for implementing the ImageLoaderFactory by the App class
         freeCompilerArgs = listOf("-Xjvm-default=enable")
     }
 }
