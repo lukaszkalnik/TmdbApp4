@@ -23,6 +23,7 @@ dependencies {
     implementation("io.insert-koin:koin-android:$koinVersion")
 
     implementation("io.coil-kt:coil-compose:2.0.0-alpha07")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
 }
 
 android {
@@ -52,5 +53,6 @@ android {
 
     kotlinOptions {
         jvmTarget = "11"
+        freeCompilerArgs = listOf("-Xjvm-default=enable")
     }
 }
