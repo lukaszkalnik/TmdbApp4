@@ -1,5 +1,6 @@
 import SwiftUI
 import shared
+import Kingfisher
 
 struct TVShowSummaryView: View {
     @StateObject var viewModel = TVShowsViewModel()
@@ -30,21 +31,21 @@ private struct ShowView: View {
     let show: TVShow
     
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color("CardViewBackground"))
-            VStack(alignment: .leading, spacing: 8) {
-                Text(show.name)
-                    .font(.title)
-                Text(show.overview)
-                    .font(.body)
-                    .multilineTextAlignment(.leading)
-                Text(show.originCountries.joined(separator: ", "))
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-            }
-            .padding(16)
+        
+        VStack(alignment: .leading, spacing: 8) {
+            Text(show.name)
+                .font(.title2)
+            KFImage(URL(string: show.backdropImageUrl ?? ""))
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+            Text(show.overview)
+                .font(.body)
+                .multilineTextAlignment(.leading)
+            Text(show.originCountries.joined(separator: ", "))
+                .font(.subheadline)
+                .foregroundColor(.secondary)
         }
+        .padding(.top)
     }
 }
 
