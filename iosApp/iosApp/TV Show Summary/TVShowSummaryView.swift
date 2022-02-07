@@ -7,22 +7,30 @@ struct TVShowSummaryView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                let tvShowsState: TVShowsState? = viewModel.uiState
-                if (tvShowsState as? TVShowsState.Loading) != nil {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: Color.green))
-                        .scaleEffect(1.5, anchor: .center)
-                } else if let tvShowsAvailable = tvShowsState as? TVShowsState.TVShows {
-                    List {
-                        ForEach(tvShowsAvailable.tvShows, id: \.id) {
-                            ShowView(show: $0)
+            ZStack {
+                Color("purple_700")
+                    .ignoresSafeArea()
+                VStack {
+                    let tvShowsState: TVShowsState? = viewModel.uiState
+                    if (tvShowsState as? TVShowsState.Loading) != nil {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: Color.green))
+                            .scaleEffect(1.5, anchor: .center)
+                    } else if let tvShowsAvailable = tvShowsState as? TVShowsState.TVShows {
+                        ScrollView {
+                            LazyVStack {
+                                ForEach(tvShowsAvailable.tvShows, id: \.id) {
+                                    ShowView(show: $0)
+                                }
+                            }
+                            .listStyle(PlainListStyle())
+                            .background(Color("CardViewBackground"))
                         }
                     }
-                    .listStyle(PlainListStyle())
                 }
-            }
-            .navigationTitle("Popular TV Shows")
+                .navigationTitle("Popular TV Shows")
+                .navigationBarTitleDisplayMode(.inline)
+            } 
         }
     }
 }
@@ -31,7 +39,6 @@ private struct ShowView: View {
     let show: TVShow
     
     var body: some View {
-        
         VStack(alignment: .leading, spacing: 8) {
             Text(show.name)
                 .font(.title2)
@@ -46,6 +53,7 @@ private struct ShowView: View {
                 .foregroundColor(.secondary)
         }
         .padding(.top)
+        .padding(.horizontal)
     }
 }
 
