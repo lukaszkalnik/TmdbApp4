@@ -17,8 +17,8 @@ struct TVShowSummaryView: View {
                             .progressViewStyle(CircularProgressViewStyle(tint: Color.green))
                             .scaleEffect(1.5, anchor: .center)
                     } else if let tvShowsAvailable = tvShowsState as? TVShowsState.TVShows {
-                        ScrollView {
-                            LazyVStack {
+                        ScrollView(.vertical, showsIndicators: false) {
+                            VStack {
                                 ForEach(tvShowsAvailable.tvShows, id: \.id) {
                                     ShowView(show: $0)
                                 }
@@ -30,7 +30,7 @@ struct TVShowSummaryView: View {
                 }
                 .navigationTitle("Popular TV Shows")
                 .navigationBarTitleDisplayMode(.inline)
-            } 
+            }
         }
     }
 }
@@ -42,18 +42,24 @@ private struct ShowView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text(show.name)
                 .font(.title2)
-            KFImage(URL(string: show.backdropImageUrl ?? ""))
-                .resizable()
-                .aspectRatio(contentMode: .fit)
+            if let backdropImageUrl = show.backdropImageUrl {
+                KFImage(URL(string: backdropImageUrl))
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            }
             Text(show.overview)
                 .font(.body)
-                .multilineTextAlignment(.leading)
             Text(show.originCountries.joined(separator: ", "))
                 .font(.subheadline)
                 .foregroundColor(.secondary)
         }
-        .padding(.top)
-        .padding(.horizontal)
+        .frame(
+            maxWidth: .infinity,
+            maxHeight: .infinity,
+            alignment: .topLeading
+        )
+        .multilineTextAlignment(.leading)
+        .padding()
     }
 }
 
