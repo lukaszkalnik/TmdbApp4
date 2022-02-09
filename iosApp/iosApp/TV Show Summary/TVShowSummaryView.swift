@@ -1,27 +1,36 @@
 import SwiftUI
 import shared
+import Kingfisher
 
 struct TVShowSummaryView: View {
     @StateObject var viewModel = TVShowsViewModel()
     
     var body: some View {
         NavigationView {
-            VStack {
-                let tvShowsState: TVShowsState? = viewModel.uiState
-                if (tvShowsState as? TVShowsState.Loading) != nil {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: Color.green))
-                        .scaleEffect(1.5, anchor: .center)
-                } else if let tvShowsAvailable = tvShowsState as? TVShowsState.TVShows {
-                    List {
-                        ForEach(tvShowsAvailable.tvShows, id: \.id) {
-                            ShowView(show: $0)
+            ZStack {
+                Color("purple_700")
+                    .ignoresSafeArea()
+                VStack {
+                    let tvShowsState: TVShowsState? = viewModel.uiState
+                    if (tvShowsState as? TVShowsState.Loading) != nil {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: Color.green))
+                            .scaleEffect(1.5, anchor: .center)
+                    } else if let tvShowsAvailable = tvShowsState as? TVShowsState.TVShows {
+                        ScrollView(.vertical, showsIndicators: false) {
+                            VStack {
+                                ForEach(tvShowsAvailable.tvShows, id: \.id) {
+                                    ShowView(show: $0)
+                                }
+                            }
+                            .listStyle(PlainListStyle())
+                            .background(Color("CardViewBackground"))
                         }
                     }
-                    .listStyle(PlainListStyle())
                 }
+                .navigationTitle("Popular TV Shows")
+                .navigationBarTitleDisplayMode(.inline)
             }
-            .navigationTitle("Popular TV Shows")
         }
     }
 }
@@ -30,21 +39,27 @@ private struct ShowView: View {
     let show: TVShow
     
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color("CardViewBackground"))
-            VStack(alignment: .leading, spacing: 8) {
-                Text(show.name)
-                    .font(.title)
-                Text(show.overview)
-                    .font(.body)
-                    .multilineTextAlignment(.leading)
-                Text(show.originCountries.joined(separator: ", "))
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
+        VStack(alignment: .leading, spacing: 8) {
+            Text(show.name)
+                .font(.title2)
+            if let backdropImageUrl = show.backdropImageUrl {
+                KFImage(URL(string: backdropImageUrl))
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
             }
-            .padding(16)
+            Text(show.overview)
+                .font(.body)
+            Text(show.originCountries.joined(separator: ", "))
+                .font(.subheadline)
+                .foregroundColor(.secondary)
         }
+        .frame(
+            maxWidth: .infinity,
+            maxHeight: .infinity,
+            alignment: .topLeading
+        )
+        .multilineTextAlignment(.leading)
+        .padding()
     }
 }
 
